@@ -1,9 +1,5 @@
 package com.byndyusoft.calculator.domain.eval;
 
-import com.byndyusoft.calculator.domain.eval.AbstractNode;
-import com.byndyusoft.calculator.domain.eval.DivideNode;
-import com.byndyusoft.calculator.domain.eval.NumberNode;
-
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
