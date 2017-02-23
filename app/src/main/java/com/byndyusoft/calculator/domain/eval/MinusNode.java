@@ -1,19 +1,19 @@
-package com.byndyusoft.calculator.domain;
+package com.byndyusoft.calculator.domain.eval;
 
-public class PlusNode extends AbstractNode {
+public class MinusNode extends AbstractNode {
 
-    public PlusNode(AbstractNode left, AbstractNode right) {
+    public MinusNode(AbstractNode left, AbstractNode right) {
         super(left, right);
     }
 
     @Override
     public double eval() {
         if (getLeft() != null && getRight() != null) {
-            return getLeft().eval() + getRight().eval();
+            return getLeft().eval() - getRight().eval();
         } else if (getLeft() != null && getRight() == null) {
             return getLeft().eval();
         } else if (getLeft() == null && getRight() != null) {
-            return getRight().eval();
+            return 0.0 - getRight().eval();
         } else {
             return 0.0;
         }

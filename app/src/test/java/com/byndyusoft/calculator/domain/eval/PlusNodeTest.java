@@ -1,4 +1,8 @@
-package com.byndyusoft.calculator.domain;
+package com.byndyusoft.calculator.domain.eval;
+
+import com.byndyusoft.calculator.domain.eval.AbstractNode;
+import com.byndyusoft.calculator.domain.eval.NumberNode;
+import com.byndyusoft.calculator.domain.eval.PlusNode;
 
 import org.junit.Test;
 

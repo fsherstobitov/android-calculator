@@ -1,4 +1,4 @@
-package com.byndyusoft.calculator.domain;
+package com.byndyusoft.calculator.domain.eval;
 
 public class DivideNode extends AbstractNode {
 

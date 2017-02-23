@@ -1,4 +1,4 @@
-package com.byndyusoft.calculator.domain;
+package com.byndyusoft.calculator.domain.eval;
 
 public class NumberNode extends AbstractNode {
 
