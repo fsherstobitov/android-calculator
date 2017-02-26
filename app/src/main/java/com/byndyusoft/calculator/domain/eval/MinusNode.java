@@ -2,6 +2,8 @@ package com.byndyusoft.calculator.domain.eval;
 
 public class MinusNode extends AbstractNode {
 
+    public MinusNode() {}
+
     public MinusNode(AbstractNode left, AbstractNode right) {
         super(left, right);
     }

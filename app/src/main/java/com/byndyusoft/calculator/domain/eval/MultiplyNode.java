@@ -2,6 +2,8 @@ package com.byndyusoft.calculator.domain.eval;
 
 public class MultiplyNode extends AbstractNode {
 
+    public MultiplyNode() {}
+
     public MultiplyNode(AbstractNode left, AbstractNode right) {
         super(left, right);
     }

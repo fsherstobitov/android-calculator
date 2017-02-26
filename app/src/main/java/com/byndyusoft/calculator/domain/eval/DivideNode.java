@@ -2,6 +2,8 @@ package com.byndyusoft.calculator.domain.eval;
 
 public class DivideNode extends AbstractNode {
 
+    public DivideNode() {}
+
     public DivideNode(AbstractNode left, AbstractNode right) {
         super(left, right);
     }
