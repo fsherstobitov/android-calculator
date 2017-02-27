@@ -32,14 +32,15 @@ public class CalculatorPresenter {
             content = new StringBuilder();
         }
         if (FIGURE_SYMBOLS.indexOf(symbol) > -1) {
-            if (content.length() == 0 || FIGURE_SYMBOLS.indexOf(content.charAt(content.length() - 1)) > -1) {
+            if (content.length() == 0 || FIGURE_SYMBOLS.indexOf(lastSymbol()) > -1) {
                 content.append(symbol);
             } else {
                 content.append(" ");
                 content.append(symbol);
             }
         } else if (OPERATORS.indexOf(symbol) > -1) {
-            if (FIGURE_SYMBOLS.indexOf(content.charAt(content.length() - 1)) > -1) {
+            if (FIGURE_SYMBOLS.indexOf(lastSymbol()) > -1 ||
+                    PARANTHESIS.indexOf(lastSymbol()) > -1) {
                 content.append(" ");
                 content.append(symbol);
             }
@@ -60,5 +61,9 @@ public class CalculatorPresenter {
 
         view.updateScreen(String.format(RESULT_FORMAT, content.toString(), result));
         content = null;
+    }
+
+    private char lastSymbol() {
+        return content.charAt(content.length() - 1);
     }
 }

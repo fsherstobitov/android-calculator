@@ -70,4 +70,40 @@ public class CalculatorPresenterTest {
         verify(view, times(1)).updateScreen("( 2 + 3 )");
     }
 
+    @Test
+    public void testOnButtonClickWithNumberAfterClosingParanthesis() {
+        CalculatorPresenter presenter = new CalculatorPresenter(view, parser);
+        presenter.onButtonClick("(");
+        presenter.onButtonClick("2");
+        presenter.onButtonClick("+");
+        presenter.onButtonClick("3");
+        presenter.onButtonClick(")");
+        presenter.onButtonClick("5");
+
+        verify(view, times(1)).updateScreen("(");
+        verify(view, times(1)).updateScreen("( 2");
+        verify(view, times(1)).updateScreen("( 2 +");
+        verify(view, times(1)).updateScreen("( 2 + 3");
+        verify(view, times(1)).updateScreen("( 2 + 3 )");
+        verify(view, times(1)).updateScreen("( 2 + 3 ) 5");
+    }
+
+    @Test
+    public void testOnButtonClickWithOperatorAfterClosingParanthesis() {
+        CalculatorPresenter presenter = new CalculatorPresenter(view, parser);
+        presenter.onButtonClick("(");
+        presenter.onButtonClick("2");
+        presenter.onButtonClick("+");
+        presenter.onButtonClick("3");
+        presenter.onButtonClick(")");
+        presenter.onButtonClick("+");
+
+        verify(view, times(1)).updateScreen("(");
+        verify(view, times(1)).updateScreen("( 2");
+        verify(view, times(1)).updateScreen("( 2 +");
+        verify(view, times(1)).updateScreen("( 2 + 3");
+        verify(view, times(1)).updateScreen("( 2 + 3 )");
+        verify(view, times(1)).updateScreen("( 2 + 3 ) +");
+    }
+
 }
