@@ -7,4 +7,6 @@ package com.byndyusoft.calculator;
 public interface CalculatorView {
 
     void updateScreen(String content);
+
+    void setValid(boolean isValid);
 }

@@ -2,6 +2,7 @@ package com.byndyusoft.calculator;
 
 import com.byndyusoft.calculator.domain.eval.AbstractNode;
 import com.byndyusoft.calculator.domain.parser.ExpressionParser;
+import com.byndyusoft.calculator.domain.parser.ExpressionValidator;
 
 /**
  * Created by fedor on 27.02.17.
@@ -17,10 +18,12 @@ public class CalculatorPresenter {
 
     private CalculatorView view;
     private ExpressionParser parser;
+    private ExpressionValidator validator;
 
-    public CalculatorPresenter(CalculatorView view, ExpressionParser parser) {
+    public CalculatorPresenter(CalculatorView view, ExpressionParser parser, ExpressionValidator validator) {
         this.view = view;
         this.parser = parser;
+        this.validator = validator;
     }
 
     public void onDestroy() {
@@ -54,14 +57,20 @@ public class CalculatorPresenter {
             }
         }
         view.updateScreen(content.toString());
+        view.setValid(true);
     }
 
     public void onEquals() {
-        AbstractNode expression = parser.parse(content.toString());
-        double result = expression.eval();
+        String expr = content.toString();
+        if (validator.isValid(expr)) {
+            AbstractNode expression = parser.parse(expr);
+            double result = expression.eval();
 
-        view.updateScreen(String.format(RESULT_FORMAT, content.toString(), result));
-        content = null;
+            view.updateScreen(String.format(RESULT_FORMAT, expr, result));
+            content = null;
+        } else {
+            view.setValid(false);
+        }
     }
 
     private char lastSymbol() {
