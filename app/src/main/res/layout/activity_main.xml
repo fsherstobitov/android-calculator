@@ -79,5 +79,13 @@
                 android:text="/"
                 android:onClick="onButtonClick"/>
         </TableRow>
+        <TableRow>
+            <Button
+                android:text="("
+                android:onClick="onButtonClick"/>
+            <Button
+                android:text=")"
+                android:onClick="onButtonClick"/>
+        </TableRow>
     </TableLayout>
 </LinearLayout>
