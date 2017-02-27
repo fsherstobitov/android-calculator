@@ -70,4 +70,28 @@ public class SimpleParserTest {
 
         assertEquals(34.5, node.eval(), 0.0);
     }
+
+    @Test
+    public void testExprWithParanthesis() {
+        ExpressionParser parser = new SimpleParser();
+        AbstractNode node = parser.parse("( 10 + 8 ) * 3");
+
+        assertEquals(54.0, node.eval(), 0.0);
+    }
+
+    @Test
+    public void testExprWithComplexParanthesis() {
+        ExpressionParser parser = new SimpleParser();
+        AbstractNode node = parser.parse("( 10 + 8 * 5 ) * 3");
+
+        assertEquals(150.0, node.eval(), 0.0);
+    }
+
+    @Test
+    public void testExprWithNestedParanthesis() {
+        ExpressionParser parser = new SimpleParser();
+        AbstractNode node = parser.parse("( ( 10 + 8 ) * 5 ) * 3");
+
+        assertEquals(270.0, node.eval(), 0.0);
+    }
 }
