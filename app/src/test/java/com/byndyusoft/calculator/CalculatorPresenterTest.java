@@ -28,7 +28,7 @@ public class CalculatorPresenterTest {
     private ExpressionParser parser;
 
     @Test
-    public void onButtonClick() throws Exception {
+    public void testOnButtonClick() throws Exception {
         CalculatorPresenter presenter = new CalculatorPresenter(view, parser);
         presenter.onButtonClick("2");
         presenter.onButtonClick("+");
@@ -40,7 +40,7 @@ public class CalculatorPresenterTest {
     }
 
     @Test
-    public void onEquals() throws Exception {
+    public void testOnEquals() throws Exception {
         AbstractNode plus = new PlusNode(new NumberNode(2), new NumberNode(3));
         when(parser.parse("2 + 3")).thenReturn(plus);
 
@@ -52,6 +52,22 @@ public class CalculatorPresenterTest {
 
         verify(parser, times(1)).parse("2 + 3");
         verify(view, times(4)).updateScreen(Matchers.any(String.class));
+    }
+
+    @Test
+    public void testOnButtonClickWithParanthesis() {
+        CalculatorPresenter presenter = new CalculatorPresenter(view, parser);
+        presenter.onButtonClick("(");
+        presenter.onButtonClick("2");
+        presenter.onButtonClick("+");
+        presenter.onButtonClick("3");
+        presenter.onButtonClick(")");
+
+        verify(view, times(1)).updateScreen("(");
+        verify(view, times(1)).updateScreen("( 2");
+        verify(view, times(1)).updateScreen("( 2 +");
+        verify(view, times(1)).updateScreen("( 2 + 3");
+        verify(view, times(1)).updateScreen("( 2 + 3 )");
     }
 
 }

@@ -10,6 +10,7 @@ public class CalculatorPresenter {
 
     private static final String OPERATORS = "+-*/";
     private static final String FIGURE_SYMBOLS = "0123456789.";
+    private static final String PARANTHESIS = "()";
     private static final String RESULT_FORMAT = "%s = %f";
 
     private StringBuilder content;
@@ -42,8 +43,14 @@ public class CalculatorPresenter {
                 content.append(" ");
                 content.append(symbol);
             }
+        } else if (PARANTHESIS.indexOf(symbol) > -1) {
+            if (content.length() == 0) {
+                content.append(symbol);
+            } else {
+                content.append(" ");
+                content.append(symbol);
+            }
         }
-//        content.append(symbol);
         view.updateScreen(content.toString());
     }
 
