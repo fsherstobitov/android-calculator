@@ -39,8 +39,9 @@ public class CalculatorPresenter {
                 content.append(symbol);
             }
         } else if (OPERATORS.indexOf(symbol) > -1) {
-            if (FIGURE_SYMBOLS.indexOf(lastSymbol()) > -1 ||
-                    PARANTHESIS.indexOf(lastSymbol()) > -1) {
+            if (content.length() > 0 &&
+                    (FIGURE_SYMBOLS.indexOf(lastSymbol()) > -1 ||
+                    PARANTHESIS.indexOf(lastSymbol()) > -1)) {
                 content.append(" ");
                 content.append(symbol);
             }
