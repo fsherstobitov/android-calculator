@@ -5,6 +5,8 @@ import com.byndyusoft.calculator.domain.parser.ExpressionParser;
 import com.byndyusoft.calculator.domain.parser.ExpressionValidator;
 
 /**
+ * This class encapsulates the logic of handling of buttons
+ * presented on the screen.
  * Created by fedor on 27.02.17.
  */
 public class CalculatorPresenter {
