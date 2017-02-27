@@ -14,9 +14,9 @@ import java.util.Stack;
 
 /**
  * This is simple implementation of ExpressionParser.
- * [0-9].+-\*\/() are the only allowed symbols. If other
- * symbols are present in expr, parse() method will throw
- * IllegalArgumentException
+ * [0-9].+-\*\/() are the only allowed symbols, otherwise
+ * the behavior is undefined. The caller
+ * code is responsible for input validation.
  */
 public class SimpleParser implements ExpressionParser {
 
@@ -24,10 +24,10 @@ public class SimpleParser implements ExpressionParser {
     private final Map<String, Integer> opPriority = new HashMap<>();
 
     public SimpleParser() {
-        opPriority.put("*", 1);
-        opPriority.put("/", 1);
-        opPriority.put("+", 2);
-        opPriority.put("-", 2);
+        opPriority.put("+", 1);
+        opPriority.put("-", 1);
+        opPriority.put("*", 2);
+        opPriority.put("/", 2);
     }
 
     @Override
@@ -53,10 +53,12 @@ public class SimpleParser implements ExpressionParser {
         } else {
             throw new IllegalArgumentException("Unsupported operator found");
         }
-        if (leftTokens.length > 2) {
-            current.setLeft(buildTree(leftTokens));
-        } else if (leftTokens.length == 2) {
-            current.setLeft(new NumberNode(Double.parseDouble(leftTokens[1])));
+        if (leftTokens.length > 1) {
+            if (containsOperators(leftTokens)) {
+                current.setLeft(buildTree(leftTokens));
+            } else {
+                current.setLeft(new NumberNode(Double.parseDouble(findOperand(leftTokens))));
+            }
         } else {
             current.setLeft(new NumberNode(Double.parseDouble(leftTokens[0])));
         }
@@ -68,24 +70,39 @@ public class SimpleParser implements ExpressionParser {
         return current;
     }
 
+    private String findOperand(String[] tokens) {
+        for (String token : tokens) {
+            if (isNumber(token)) {
+                return token;
+            }
+        }
+        throw new IllegalArgumentException("Numbers not found in tokens");
+    }
+
+    private boolean containsOperators(String[] tokens) {
+        for (String token : tokens) {
+            if (isOperator(token)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int findInflectionPoint(String[] tokens) {
         int inflPoint = 0;
-        double currentOpPriority = 0;
-        double priorityMultiplier = 1.0;
+        int currentOpPriority = 0;
+        int priorityMultiplier = 1;
         for (int i = 0; i < tokens.length; i++) {
             String token = tokens[i];
             if (isOperator(token)) {
-                if (currentOpPriority < opPriority.get(token)) {
-                    inflPoint = i;
-                    currentOpPriority = opPriority.get(token) * priorityMultiplier;
-                } else if (currentOpPriority == opPriority.get(token)) {
+                if (currentOpPriority == 0 || currentOpPriority >= opPriority.get(token) * priorityMultiplier) {
                     inflPoint = i;
                     currentOpPriority = opPriority.get(token) * priorityMultiplier;
                 }
             } else if (isLeftBrace(token)) {
-                priorityMultiplier *= 0.1;
-            } else if (isRightBrace(token)) {
                 priorityMultiplier *= 10;
+            } else if (isRightBrace(token)) {
+                priorityMultiplier /= 10;
             }
         }
         return inflPoint;
