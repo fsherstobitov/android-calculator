@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 /**
  * Created by fedor on 27.02.17.
  */
-public class ExpressionValidatorTest {
+public class SimpleExpressionValidatorTest {
 
     @Test
     public void testNull() {
-        ExpressionValidator validator = new ExpressionValidator();
+        ExpressionValidator validator = new SimpleExpressionValidator();
         boolean valid = validator.validate(null);
 
         assertFalse(valid);
@@ -19,7 +19,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void testEmpty() {
-        ExpressionValidator validator = new ExpressionValidator();
+        ExpressionValidator validator = new SimpleExpressionValidator();
         boolean valid = validator.validate("");
 
         assertFalse(valid);
@@ -27,7 +27,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void testPairBracesFail() {
-        ExpressionValidator validator = new ExpressionValidator();
+        ExpressionValidator validator = new SimpleExpressionValidator();
         boolean valid = validator.validate("( 3 + 2");
 
         assertFalse(valid);
@@ -35,7 +35,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void testPairBracePass() {
-        ExpressionValidator validator = new ExpressionValidator();
+        ExpressionValidator validator = new SimpleExpressionValidator();
         boolean valid = validator.validate("( 3 + 2 )");
 
         assertTrue(valid);
@@ -43,7 +43,7 @@ public class ExpressionValidatorTest {
 
     @Test
     public void testAllOperatorsBinary() {
-        ExpressionValidator validator = new ExpressionValidator();
+        ExpressionValidator validator = new SimpleExpressionValidator();
         boolean valid = validator.validate("2 +");
 
         assertFalse(valid);
