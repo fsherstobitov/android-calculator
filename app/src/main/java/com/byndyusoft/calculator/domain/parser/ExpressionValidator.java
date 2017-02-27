@@ -7,5 +7,5 @@ package com.byndyusoft.calculator.domain.parser;
 
 public interface ExpressionValidator {
 
-    boolean validate(String expr);
+    boolean isValid(String expr);
 }

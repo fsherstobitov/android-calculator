@@ -11,7 +11,7 @@ package com.byndyusoft.calculator.domain.parser;
 public class SimpleExpressionValidator implements ExpressionValidator {
 
     @Override
-    public boolean validate(String expr) {
+    public boolean isValid(String expr) {
         return notNullOrEmpty(expr) &&
                 bracesArePaired(expr) &&
                 allOperatorsAreBinary(expr);

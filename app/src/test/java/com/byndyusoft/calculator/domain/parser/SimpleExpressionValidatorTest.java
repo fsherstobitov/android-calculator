@@ -12,7 +12,7 @@ public class SimpleExpressionValidatorTest {
     @Test
     public void testNull() {
         ExpressionValidator validator = new SimpleExpressionValidator();
-        boolean valid = validator.validate(null);
+        boolean valid = validator.isValid(null);
 
         assertFalse(valid);
     }
@@ -20,7 +20,7 @@ public class SimpleExpressionValidatorTest {
     @Test
     public void testEmpty() {
         ExpressionValidator validator = new SimpleExpressionValidator();
-        boolean valid = validator.validate("");
+        boolean valid = validator.isValid("");
 
         assertFalse(valid);
     }
@@ -28,7 +28,7 @@ public class SimpleExpressionValidatorTest {
     @Test
     public void testPairBracesFail() {
         ExpressionValidator validator = new SimpleExpressionValidator();
-        boolean valid = validator.validate("( 3 + 2");
+        boolean valid = validator.isValid("( 3 + 2");
 
         assertFalse(valid);
     }
@@ -36,7 +36,7 @@ public class SimpleExpressionValidatorTest {
     @Test
     public void testPairBracePass() {
         ExpressionValidator validator = new SimpleExpressionValidator();
-        boolean valid = validator.validate("( 3 + 2 )");
+        boolean valid = validator.isValid("( 3 + 2 )");
 
         assertTrue(valid);
     }
@@ -44,7 +44,7 @@ public class SimpleExpressionValidatorTest {
     @Test
     public void testAllOperatorsBinary() {
         ExpressionValidator validator = new SimpleExpressionValidator();
-        boolean valid = validator.validate("2 +");
+        boolean valid = validator.isValid("2 +");
 
         assertFalse(valid);
     }
